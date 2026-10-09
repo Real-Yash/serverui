@@ -1,0 +1,20 @@
+pkgbase = serverui-bin
+	pkgdesc = Modern open-source control panel for managing servers from the browser or desktop
+	pkgver = 0.2.0
+	pkgrel = 1
+	url = https://serverui.dev
+	arch = x86_64
+	license = Apache-2.0
+	makedepends = libarchive
+	depends = webkit2gtk-4.1
+	depends = gtk3
+	depends = openssl
+	depends = hicolor-icon-theme
+	noextract = ServerUI-0.2.0-amd64.deb
+	options = !strip
+	source = ServerUI-0.2.0-amd64.deb::https://github.com/rakhechashubham/serverui/releases/download/v0.2.0/ServerUI-0.2.0-amd64.deb
+	source = LICENSE::https://raw.githubusercontent.com/rakhechashubham/serverui/v0.2.0/LICENSE
+	sha256sums = a7db653629450e4681ee6ce58fbf58ccf11ff89b4bd842156a17c66f70859073
+	sha256sums = efb7a2e703c7ac955f0f3d1d2c1d8003c4a2514387a79bf4994ad9e1e08ffefc
+
+pkgname = serverui-bin

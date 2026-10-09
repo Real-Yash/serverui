@@ -1,0 +1,31 @@
+# Maintainer: Shubham Rakhecha <contact@skyrekon.com>
+# Binary repackage of the official ServerUI desktop .deb.
+# For a source build, see the 'serverui' package (when available).
+pkgname=serverui-bin
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Modern open-source control panel for managing servers from the browser or desktop"
+arch=('x86_64')
+url="https://serverui.dev"
+license=('Apache-2.0')
+depends=('webkit2gtk-4.1' 'gtk3' 'openssl' 'hicolor-icon-theme')
+makedepends=('libarchive')
+options=('!strip')
+source=(
+  "ServerUI-${pkgver}-amd64.deb::https://github.com/rakhechashubham/serverui/releases/download/v${pkgver}/ServerUI-${pkgver}-amd64.deb"
+  "LICENSE::https://raw.githubusercontent.com/rakhechashubham/serverui/v${pkgver}/LICENSE"
+)
+sha256sums=('a7db653629450e4681ee6ce58fbf58ccf11ff89b4bd842156a17c66f70859073'
+            'efb7a2e703c7ac955f0f3d1d2c1d8003c4a2514387a79bf4994ad9e1e08ffefc')
+# NOTE: upstream publishes SHA256SUMS for macOS artifacts only; the .deb hash
+# above was verified from a complete 18.9 MB download. Re-verify on every
+# version bump: the .deb must extract with `bsdtar -tf` without errors.
+noextract=("ServerUI-${pkgver}-amd64.deb")
+
+package() {
+  local _debdir="${srcdir}/deb"
+  mkdir -p "${_debdir}"
+  bsdtar -xf "${srcdir}/ServerUI-${pkgver}-amd64.deb" -C "${_debdir}"
+  bsdtar -xf "${_debdir}"/data.tar.* -C "${pkgdir}"
+  install -Dm644 "${srcdir}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
